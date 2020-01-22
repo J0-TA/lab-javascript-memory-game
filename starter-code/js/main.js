@@ -32,6 +32,11 @@ memoryGame.shuffleCards()
 let scoreClicked = document.getElementById('pairs_clicked')
 let scoreGuessed = document.getElementById('pairs_guessed')
 
+function cardBack (card1, card2) {
+card1.classList.remove(`turned`)
+card2.classList.remove(`turned`)
+}
+
 window.addEventListener("load", event => {
   let html = "";
   memoryGame.cards.forEach(pic => {
@@ -49,13 +54,17 @@ window.addEventListener("load", event => {
     card.addEventListener("click", () => {
       card.className="card turned"
       memoryGame.pickedCards.push(card)
-      console.log(memoryGame.pickedCards)  
-      console.log(`Card clicked: ${card.dataset.cardname}`);
       if(memoryGame.pickedCards.length === 2){
         memoryGame.checkIfPair(memoryGame.pickedCards[0].dataset.cardname, memoryGame.pickedCards[1].dataset.cardname)
-      } else 
-      scoreClicked.innerText=memoryGame.pairsClicked
-      scoreGuessed.innerText=memoryGame.pairsGuessed
+        memoryGame.pickedCards = []
+        scoreClicked.innerText=memoryGame.pairsClicked
+        scoreGuessed.innerText=memoryGame.pairsGuessed
+        memoryGame.isFinished() && window.alert(`You WIN`)
+      } else {
+        setTimeout(cardBack, 2000, memoryGame.pickedCards[0], memoryGame.pickedCards[1])
+        scoreClicked.innerText=memoryGame.pairsClicked
+
+      }
     });
   });
 });
