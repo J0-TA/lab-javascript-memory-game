@@ -50,10 +50,10 @@ window.addEventListener("load", event => {
       card.className="card turned"
       memoryGame.pickedCards.push(card)
       console.log(memoryGame.pickedCards)  
-      console.log(`Card clicked: ${getAttribute(`cardname`)}`);
-      if(memoryGame.pickedCards.length === 3){
-        
-      }
+      console.log(`Card clicked: ${card.dataset.cardname}`);
+      if(memoryGame.pickedCards.length === 2){
+        memoryGame.checkIfPair(memoryGame.pickedCards[0].dataset.cardname, memoryGame.pickedCards[1].dataset.cardname)
+      } else 
       scoreClicked.innerText=memoryGame.pairsClicked
       scoreGuessed.innerText=memoryGame.pairsGuessed
     });
